@@ -1,0 +1,18 @@
+<launch>
+
+    <!-- possible values are 'omni' and 'diff' -->
+    <arg name="drive_type" default="diff"/>
+
+    <!-- config file with buttons/axes assignment and other settings -->
+    <arg name="teleop_config" value="$(find joysticks_quick_start)/config/extreme_for_$(arg drive_type).yaml" />
+    <rosparam file="$(arg teleop_config)" command="load"/>
+
+    <!-- joystick driver -->
+    <include file="$(find joysticks_quick_start)/launch/include/joy.launch"/>
+
+    <!-- translator to cmd_vel commmands -->
+    <node pkg="joy_teleop" type="joy_teleop.py" name="joy_teleop" output="screen">
+        <!--<remap from="/cmd_vel" to="/cmd_vel" />-->
+    </node>
+
+</launch>
